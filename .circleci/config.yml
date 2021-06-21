@@ -73,7 +73,6 @@ build_image_and_deploy_staging:
               --ssh-public-key myKeyPair \
               --managed
 workflows:
-  build-test-and-deploy:
     jobs:
       - setup
       - test:
