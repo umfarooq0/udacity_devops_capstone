@@ -40,19 +40,21 @@ build_image_and_deploy_staging:
             sudo mv ./kubectl /usr/local/bin/kubectl
       - run:
           name: install eksctl 
-          command: 
+          command: |
             curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
 
-      -run:
-          name: create key pair + cluster
-          command: 
-            aws ec2 create-key-pair --region us-west-2 --key-name myKeyPair
-            eksctl create cluster \
-            --name my-cluster \
-            --region us-west-2 \
-            --with-oidc \
-            --ssh-access \
-            --ssh-public-key myKeyPair \
-            --managed
+
+        -run:
+            name: create key pair + cluster
+            command: |
+              aws ec2 create-key-pair --region us-west-2 --key-name myKeyPair
+              eksctl create cluster \
+              --name my-cluster \
+              --region us-west-2 \
+              --with-oidc \
+              --ssh-access \
+              --ssh-public-key myKeyPair \
+              --managed
+
 
