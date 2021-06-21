@@ -25,10 +25,8 @@ jobs:
           command: |
             kubectl get services
           name: Test cluster
-orbs:
-  aws-eks: circleci/aws-eks@0.2.3
-  kubernetes: circleci/kubernetes@0.4.0
-version: 2.1
+
+
 workflows:
   deployment:
     jobs:
