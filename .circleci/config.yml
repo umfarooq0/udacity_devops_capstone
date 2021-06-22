@@ -26,17 +26,26 @@ jobs:
             echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
             kubectl version --short --client
       - run:
-          name: install eksctl 
+          name: create eks using cloudformation template
           command: |
-            curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/0.53.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
-            mv /tmp/eksctl /usr/local/bin-run 
-            eksctl version
+            aws cloudformation create-stack \
+            --region us-west-2 \
+            --stack-name my-eks-vpc-stack \
+            --template-url https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml
       - run:
-          name: create cluster
-          command: |
-            eksctl create cluster \
-            --name my-cluster \
-            --fargate
+          name: create required IAM role
+          command: 
+            aws iam create-role \
+            --role-name myAmazonEKSClusterRole \
+            --assume-role-policy-document file://"cluster-role-trust-policy.json"
+      - run:
+          name: attach IAM role
+          command: 
+            aws iam attach-role-policy \
+            --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy \
+            --role-name myAmazonEKSClusterRole
+       
+
             
 
       
