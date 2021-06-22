@@ -12,9 +12,13 @@ jobs:
       - run:
           name: Deploy Cloudformation Template with new Docker image
           command: |
-            aws cloudformation deploy \
-            --template cfn/my-template.yml \
-            --stack CI-TEST-STACK 
+            aws cloudformation create-stack \
+            --stack-name CI-TEST-STACK
+            --template-body cfn/my-template.yml
+            --parameters cfn/my-template.json
+            --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" 
+            --region=us-west-2
+          
                 
 
         
