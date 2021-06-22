@@ -10,9 +10,12 @@ jobs:
       - checkout
       - aws-cli/setup
       - run:
-          name: create ECR and push dockerfile 
+          name: login
           command: |
             aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
+      - run:
+          name: create repo
+          command: |  
             aws ecr create-repository \
             --repository-name hello-world \
             --image-scanning-configuration scanOnPush=true \
