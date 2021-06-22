@@ -13,7 +13,7 @@ jobs:
           name: Deploy Cloudformation Template with new Docker image
           command: |
             aws cloudformation create-stack \
-            --stack-name CI-TEST-STACK \ 
+            --stack-name circleci
             
    
 
