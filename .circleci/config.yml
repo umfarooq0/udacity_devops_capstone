@@ -18,7 +18,7 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template cfn/my-template.yml \
-            --stack << parameters.stack-name >> \ \
+            --stack << parameters.stack-name >> 
                 
 
 workflows:
