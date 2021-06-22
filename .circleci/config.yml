@@ -17,8 +17,7 @@ jobs:
             --template-body cfn/my-template.yml \
             --parameters cfn/my-template.json \
             --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" \
-            --region=us-west-2
-          
+
                 
 
         
