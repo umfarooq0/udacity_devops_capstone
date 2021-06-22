@@ -6,7 +6,7 @@ orbs:
 jobs:
   deploy-cfn:
     parameters:
-      stack-name:
+      stack-name: 
         description: Name of the CloudFormation stack
         type: string
     executor: aws-cli/default
@@ -18,7 +18,7 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template cfn/my-template.yml \
-            --stack CI_STACK_TEST \
+            --stack << parameters.stack-name >> \ \
                 
 
 workflows:
