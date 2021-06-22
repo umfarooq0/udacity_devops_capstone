@@ -14,7 +14,7 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template cfn/my-template.yml \
-            --stack CI_TEST_STACK 
+            --stack CI-TEST-STACK 
                 
 
         
