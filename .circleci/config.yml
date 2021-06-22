@@ -17,7 +17,7 @@ jobs:
           name: create repo
           command: |  
             aws ecr create-repository \
-            --repository-name Junesworld \
+            --repository-name junesworld \
             --image-scanning-configuration scanOnPush=true \
             --region us-east-2
            
