@@ -17,8 +17,10 @@ jobs:
             --stack CI_TEST_STACK 
                 
 
+        
 workflows:
-  deploy:
-    deploy-cfn:
-      context:
-        - aws
+  build_all:
+    jobs:
+      - deploy-cfn:
+         context:
+        `   - aws
