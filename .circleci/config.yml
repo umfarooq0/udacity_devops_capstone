@@ -19,6 +19,6 @@ jobs:
 
 workflows:
   deploy:
-    - deploy-cfn:
+    deploy-cfn:
       context:
         - aws
