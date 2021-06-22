@@ -14,8 +14,6 @@ jobs:
           command: |
             aws cloudformation create-stack \
             --stack-name CI-TEST-STACK \ 
-            --template-body file://cfn/my-template.yml \
-            --parameters file://cfn/my-template.json \
             
    
 
