@@ -23,7 +23,6 @@ jobs:
 
 workflows:
   deploy:
-    - … # build image and push to ECR with ${CIRCLE_SHA1} tag
     - deploy-cfn:
       context:
         - aws
