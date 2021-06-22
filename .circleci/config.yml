@@ -14,6 +14,9 @@ jobs:
           command: |
             aws cloudformation create-stack \
             --stack-name circleci
+            --template-body file://cfn/my-template.yml \
+            --parameters file://cfn/my-template.json \
+            --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" 
             
    
 
