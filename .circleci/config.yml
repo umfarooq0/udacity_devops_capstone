@@ -48,11 +48,11 @@ jobs:
           name: set-up EKS cluster
           command: |
             aws eks create-cluster \
-           --region us-east-2 \
-           --name cicluster \
-           --kubernetes-version <1.20> \
-           --role-arn arn:aws:iam::864185776221:role/myAmazonEKSClusterRole  \
-           --resources-vpc-config subnetIds=subnet-06838be412ba9e2f6,subnet-0aeec8eb9408e2093,subnet-00432d2e0d672a207,subnet-0d8b645c21ef4e022,securityGroupIds=sg-09942825d6b0216e3
+            --region us-east-2 \
+            --name cicluster \
+            --kubernetes-version <1.20> \
+            --role-arn arn:aws:iam::864185776221:role/myAmazonEKSClusterRole  \
+            --resources-vpc-config subnetIds=subnet-06838be412ba9e2f6,subnet-0aeec8eb9408e2093,subnet-00432d2e0d672a207,subnet-0d8b645c21ef4e022,securityGroupIds=sg-09942825d6b0216e3
 
 
         
