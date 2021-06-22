@@ -1,39 +1,28 @@
+version: 2.1
 
+orbs:
+  aws-cli: circleci/aws-cli@1.4.0
 
 jobs:
-  test-cluster:
-    executor: aws-eks/python3
-    parameters:
-      cluster-name:
-        description: |
-          Name of the EKS cluster
-        type: string
+  deploy-cfn:
+    executor: aws-cli/default
     steps:
-      - kubernetes/install
-      - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: << parameters.cluster-name >>
+      - checkout
+      - aws-cli/setup
       - run:
+          name: create ECR and push dockerfile 
           command: |
-            kubectl get services
-          name: Test cluster
-orbs:
-  aws-eks: circleci/aws-eks@0.2.3
-  kubernetes: circleci/kubernetes@0.4.0
-version: 2.1
+            aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
+            aws ecr create-repository \
+            --repository-name hello-world \
+            --image-scanning-configuration scanOnPush=true \
+            --region us-east-2
+           
+          
+        
 workflows:
-  deployment:
+  build_all:
     jobs:
-      - aws-eks/create-cluster:
-          cluster-name: my-eks-demo
-          context:
+      - deploy-cfn:
+         context:
             - AWS
-      - test-cluster:
-          cluster-name: my-eks-demo
-          requires:
-            - aws-eks/create-cluster
-          context:
-            - AWS
-      - aws-eks/delete-cluster:
-          cluster-name: my-eks-demo
-          requires:
-            - test-cluster
