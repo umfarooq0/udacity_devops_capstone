@@ -34,13 +34,13 @@ jobs:
             --template-url https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml
       - run:
           name: create required IAM role
-          command: 
+          command: | 
             aws iam create-role \
             --role-name myAmazonEKSClusterRole \
             --assume-role-policy-document file://"cluster-role-trust-policy.json"
       - run:
           name: attach IAM role
-          command: 
+          command: | 
             aws iam attach-role-policy \
             --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy \
             --role-name myAmazonEKSClusterRole
