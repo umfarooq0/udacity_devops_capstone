@@ -1,31 +1,16 @@
-version: 2.1
-
 orbs:
-  aws-cli: circleci/aws-cli@1.4.0
-
-jobs:
-  deploy-cfn:
-    executor: aws-cli/default
-    steps:
-      - checkout
-      - aws-cli/setup
-      - run:
-          name: login
-          command: |
-            aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
-      - run:
-          name: create repo
-          command: |  
-            aws ecr create-repository \
-            --repository-name junesworld \
-            --image-scanning-configuration scanOnPush=true \
-            --region us-east-2
-           
-          
-        
+  aws-ecr: circleci/aws-ecr@7.0.0
+version: 2.1
 workflows:
-  build_all:
+  build_and_push_image:
     jobs:
-      - deploy-cfn:
-         context:
-            - AWS
+      - aws-ecr/build-and-push-image:
+
+          context: AWS
+          create-repo: true
+          dockerfile: Dockerfile
+          no-output-timeout: 20m
+          path: file://Dockerfile
+          repo: junesworld
+          skip-when-tags-exist: false
+          tag: 'latest,myECRRepoTag'
