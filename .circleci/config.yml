@@ -4,20 +4,6 @@ orbs:
   aws-cli: circleci/aws-cli@1.4.0
 
 jobs:
-  build_setup:
-    docker:
-      # Use the same Docker base as the project
-      - image: python:3.7.3-stretch
-    
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - run:
-          name: push Docker image
-          command: |
-              docker build -t hello-world .
-
   deploy-cfn:
     executor: aws-cli/default
     steps:
@@ -40,6 +26,7 @@ jobs:
       - run:
           name: Push image to repo  
           command: |
+              docker build -t hello-world .
               docker tag hello-world:latest aws_account_id.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
               docker push aws_account_id.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
           
@@ -47,9 +34,8 @@ jobs:
 workflows:
   build_all:
     jobs:
-      - build_setup
-      - deploy-cfn:
-          requires:
-            - build_setup
+
+      - deploy_cfn:
+
           context:
             - AWS
