@@ -48,7 +48,7 @@ workflows:
   build_all:
     jobs:
       - build_setup
-      - deploy_cfn:
+      - deploy-cfn:
           requires:
             - build_setup
           context:
