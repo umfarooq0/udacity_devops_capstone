@@ -3,10 +3,19 @@ kind: Pod
 metadata:
   name: my-app   
   labels:
-    app: my-app                              
-spec:                                                
-  containers:
-    - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld
-      name: latest                            
-      ports:
-        - containerPort: 8080   
+    app: my-app  
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:                                                
+      containers:
+        - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld
+          name: latest                            
+          ports:
+            - containerPort: 8080   
