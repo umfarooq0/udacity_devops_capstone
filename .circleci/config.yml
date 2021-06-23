@@ -21,8 +21,8 @@ jobs:
           name: login
           command: |
             eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-            docker build -t ${AWS_ECR_ACCOUNT_URL}/${REPOSITORY_NAME}:citest .
-            docker push ${AWS_ECR_ACCOUNT_URL}/${REPOSITORY_NAME}:citest
+            docker build -t citest .
+            docker push citest
           
           # aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com \
     
