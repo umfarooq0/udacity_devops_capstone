@@ -22,11 +22,6 @@ jobs:
             --region us-west-2
 
       - run:
-          name: push Docker image
-          command: |
-              docker build -t hello-world .
-
-      - run:
           name: Push image to repo  
           command: |
               docker tag hello-world:latest aws_account_id.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
