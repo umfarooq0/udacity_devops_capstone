@@ -15,7 +15,7 @@ jobs:
       - run: sudo pip3 install --upgrade awscli
       - run: aws --version
 
-     - setup_remote_docker
+      - setup_remote_docker
 
       - run:
           name: login
