@@ -32,6 +32,10 @@ jobs:
           name: create clusters 
           command: |
             eksctl create cluster --config-file=cluster.yaml
+            kubectl apply -f deployment.yml
+            kubectl get deployments
+            kubectl apply -f service.yaml
+            kubectl get services
         
             
        
