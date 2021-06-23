@@ -12,10 +12,10 @@ spec:
   template:
     metadata:
       labels:
-        app: nginx
+        app: my-app
     spec:                                                
       containers:
-        - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld
+        - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
           name: latest                            
           ports:
             - containerPort: 8080   
