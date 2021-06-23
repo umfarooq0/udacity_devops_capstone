@@ -7,6 +7,6 @@ metadata:
 spec:                                                
   containers:
     - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld
-      name: -latest                            
+      name: latest                            
       ports:
         - containerPort: 8080   
