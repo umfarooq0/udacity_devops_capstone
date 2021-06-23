@@ -23,11 +23,11 @@ jobs:
             eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       -run:
           name: docker build 
-          command: 
+          command: |
             docker build -t citest .
       -run: 
           name: docker tag+push
-          command: 
+          command: |
               docker tag citest:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/citest:latest
               docker push AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION1.amazonaws.com/citest:latest
             
