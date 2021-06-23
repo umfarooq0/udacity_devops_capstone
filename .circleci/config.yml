@@ -20,7 +20,7 @@ workflows:
   deployment:
     jobs:
       - create-deployment:
-          cluster-name: eks-demo-deployment
+          cluster-name: my-eks-demo
       - aws-eks/update-container-image:
           cluster-name: my-eks-demo
           container-image-updates: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld
