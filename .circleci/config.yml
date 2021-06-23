@@ -13,7 +13,7 @@ jobs:
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
-          resource-file-path: deployment.yaml
+          resource-file-path: udacity_devops_capstone/deployment.yaml
           resource-name: nginx-deployment
 orbs:
   aws-eks: circleci/aws-eks@0.2.3
