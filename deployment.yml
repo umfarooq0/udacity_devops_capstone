@@ -1,19 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod                                            
 metadata:
-  name: nginx-deployment
-spec:
-  selector:
-    matchLabels:
-      app: nginx
-  replicas: 2 # tells deployment to run 2 pods matching the template
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
+  name: my-app   
+  labels:
+    app: my-app                              
+spec:                                                
+  containers:
+    - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld
+      name: -latest                            
+      ports:
+        - containerPort: 8080   
