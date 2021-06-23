@@ -29,7 +29,7 @@ workflows:
           container-image-updates: 'nginx=nginx:1.9.1'
           requires:
             - create-deployment
-           resource-names: nginx-deployment
-                resource-types: deployment 
+          resource-names: nginx-deployment
+          resource-types: deployment 
            
    
