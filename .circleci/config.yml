@@ -29,6 +29,6 @@ workflows:
           container-image-updates: 'my-app=my-app'
           requires:
             - create-deployment
-          resource-name: deployment.apps/my-app
+          resource-name: pod/my-app
            
    
