@@ -12,7 +12,7 @@ jobs:
 
       - run: sudo apt-get update
       - run: sudo apt-get install -y python3-pip python-dev
-      - run: sudo pip install --upgrade awscli
+      - run: sudo pip3 install --upgrade awscli
       - run: aws --version
 
 
@@ -20,14 +20,14 @@ jobs:
       - run:
           name: login
           command: |
-            aws ecr get-login-password --region  | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
+            aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com \
       - run:
           name: create repo
           command: |  
             aws ecr create-repository \
             --repository-name junesworld \
             --image-scanning-configuration scanOnPush=true \
-            --region us-west-2
+            --region $AWS_DEFAULT_REGION
 
       
 
