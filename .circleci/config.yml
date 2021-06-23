@@ -1,39 +1,5 @@
-version: 2.1
-
-orbs:
-  aws-cli: circleci/aws-cli@1.4.0
-  aws-eks: circleci/aws-eks@0.2.3
-  kubernetes: circleci/kubernetes@0.4.0
-
 jobs:
-  deploy-cfn:
-    executor: aws-cli/default
-    steps:
-      - checkout
-      - aws-cli/setup
-
-      - run: sudo apt-get update
-      - run: sudo apt-get install -y python3-pip python-dev
-      - run: sudo pip3 install --upgrade awscli
-      - run: aws --version
-
-      - setup_remote_docker
-
-      - run:
-          name: login
-          command: |
-            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - run:
-          name: docker build 
-          command: |
-            docker build -t citest .
-      - run: 
-          name: docker tag+push
-          command: |
-              docker tag citest:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/junesworld:latest
-              docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/junesworld:latest
-            
-  test-cluster:
+  create-deployment:
     executor: aws-eks/python3
     parameters:
       cluster-name:
@@ -41,30 +7,40 @@ jobs:
           Name of the EKS cluster
         type: string
     steps:
-      - kubernetes/install
+      - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
-      - run:
-          command: |
-            kubectl get services
-          name: Test cluster 
-          # aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com \
-    
+          install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: tests/nginx-deployment/deployment.yaml
+          resource-name: deployment/nginx-deployment
+orbs:
+  aws-eks: circleci/aws-eks@0.2.3
+  kubernetes: circleci/kubernetes@0.4.0
+version: 2.1
 workflows:
   deployment:
     jobs:
-      - deploy-cfn:
-
-          context:
-            - AWS
       - aws-eks/create-cluster:
-          cluster-name: my-eks-demo
-          context:
-            - AWS
-      - test-cluster:
-          cluster-name: my-eks-demo
+          cluster-name: eks-demo-deployment
+      - create-deployment:
+          cluster-name: eks-demo-deployment
           requires:
             - aws-eks/create-cluster
-          context:
-            - AWS
-
+      - aws-eks/update-container-image:
+          cluster-name: eks-demo-deployment
+          container-image-updates: 'nginx=nginx:1.9.1'
+          post-steps:
+            - kubernetes/delete-resource:
+                resource-names: nginx-deployment
+                resource-types: deployment
+                wait: true
+          record: true
+          requires:
+            - create-deployment
+          resource-name: deployment/nginx-deployment
+      - aws-eks/delete-cluster:
+          cluster-name: eks-demo-deployment
+          requires:
+            - aws-eks/update-container-image
