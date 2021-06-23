@@ -31,7 +31,7 @@ jobs:
       - run: 
           name: create clusters 
           command: |
-            eksctl create cluster --config-file=clusters.yaml
+            eksctl create cluster --config-file=cluster.yaml
         
             
        
