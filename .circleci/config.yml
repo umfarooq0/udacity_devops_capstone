@@ -67,7 +67,4 @@ workflows:
             - aws-eks/create-cluster
           context:
             - AWS
-      - aws-eks/delete-cluster:
-          cluster-name: my-eks-demo
-          requires:
-            - test-cluster
+
