@@ -11,7 +11,10 @@ jobs:
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
           install-kubectl: true
- 
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: deployment.yml
+          resource-name: deployment.apps/nginx-deployment
 orbs:
   aws-eks: circleci/aws-eks@0.2.3
   kubernetes: circleci/kubernetes@0.4.0
@@ -19,9 +22,12 @@ version: 2.1
 workflows:
   deployment:
     jobs:
+
       - create-deployment:
           cluster-name: my-eks-demo
+          requires:
+            - aws-eks/create-cluster
       - aws-eks/update-container-image:
           cluster-name: my-eks-demo
-          container-image-updates: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld
-          
+          container-image-updates: 'nginx=nginx:1.9.1'
+   
