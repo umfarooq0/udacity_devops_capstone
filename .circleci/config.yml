@@ -27,4 +27,6 @@ workflows:
       - aws-eks/update-container-image:
           cluster-name: my-eks-demo
           container-image-updates: 'nginx=nginx:1.9.1'
+          requires:
+            - create-deployment
    
