@@ -20,23 +20,14 @@ jobs:
       - run:
           name: login
           command: |
-            aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com \
-      - run:
-          name: create repo
-          command: |  
-            aws ecr create-repository \
-            --repository-name junesworld \
-            --image-scanning-configuration scanOnPush=true \
-            --region $AWS_DEFAULT_REGION
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            docker build -t ${AWS_ECR_ACCOUNT_URL}/${REPOSITORY_NAME}:citest .
+            docker push ${AWS_ECR_ACCOUNT_URL}/${REPOSITORY_NAME}:citest
+          
+          # aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com \
+    
 
-      
-
-      - run:
-          name: Push image to repo  
-          command: |
-              docker build -t hello-world .
-              docker tag hello-world:latest aws_account_id.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
-              docker push aws_account_id.dkr.ecr.us-west-2.amazonaws.com/hello-world:latest
+  
           
         
 workflows:
