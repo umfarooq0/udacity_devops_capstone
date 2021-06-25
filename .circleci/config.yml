@@ -28,15 +28,42 @@ jobs:
              curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
              sudo mv /tmp/eksctl /usr/local/bin
              kubectl version --short --client
-      - run: 
+             
+      
+            
+      - run:
+          name: login
+          command: |
+              aws ecr get-login-password --region  | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
+      - run:
+          name: create repo
+          command: |  
+            aws ecr create-repository \
+            --repository-name junesworld \
+            --image-scanning-configuration scanOnPush=true \
+            --region us-west-2
+      - run:
+          name: Push image to repo  
+          command: |
+              docker build -t nginxD .
+              docker tag nginxD:latest aws_account_id.dkr.ecr.us-west-2.amazonaws.com/nginxD:latest
+              docker push aws_account_id.dkr.ecr.us-west-2.amazonaws.com/nginxD:latest
+              
+              
+       - run:
+          name: infrastructure handling for AWS VPC, subnets and networking
+          command: |
+              chmod +x create_vpc_infra.sh
+              ./create_vpc_infra.sh
+              
+       - run: 
           name: create clusters 
           command: |
-            eksctl create cluster --config-file=cluster.yaml
-            kubectl apply -f deployment.yml
-            kubectl get deployments
-            kubectl apply -f service.yaml
-            kubectl get services
-        
+              eksctl create cluster --config-file=cluster.yaml
+              kubectl apply -f deployment.yml
+              kubectl get deployments
+
+
             
        
 workflows:
