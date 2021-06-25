@@ -6,19 +6,19 @@ metadata:
   region: us-west-2
 
 vpc:
-  id: vpc-0f4e7ff21d6b9615e
+  id: vpc-0ac1acf113f327168
   cidr: "192.168.0.0/16"
   subnets:
     public:
       us-west-2:
-        id: subnet-0f5fbf47ce0553f30
+        id: subnet-06de91920570103ea
       us-west-2:
-        id: subnet-0526973c8eb98b576
+        id: subnet-02b37fead7bd4d9ad
     private:
       us-west-2:
-        id: subnet-0120eb437afcf745a
+        id: subnet-0bb0d394d870b1daf
       us-west-2:
-        id: subnet-0bcab3e75df84902f
+        id: subnet-0b87880a171781bb5
 
 
 nodeGroups:
