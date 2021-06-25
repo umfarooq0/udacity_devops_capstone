@@ -34,7 +34,7 @@ jobs:
       - run:
           name: login
           command: |
-              aws ecr get-login-password --region  | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
+              aws ecr get-login-password --region $AWS_DEFAULT_REGION  | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
       - run:
           name: create repo
           command: |  
