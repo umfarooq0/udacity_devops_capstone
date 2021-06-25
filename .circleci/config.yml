@@ -42,7 +42,7 @@ jobs:
           name: Push image to repo  
           command: |
               docker build -t nginxd .
-              docker tag nginxd:latest public.ecr.aws/v0t2j0h8/udacitycapstone
+              docker tag latest public.ecr.aws/v0t2j0h8/udacitycapstone
               docker push public.ecr.aws/v0t2j0h8/udacitycapstone
 
       - run: 
