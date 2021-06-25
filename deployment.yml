@@ -20,8 +20,11 @@ spec:
         app: my-app
     spec:
       containers:
-        - image: public.ecr.aws/v0t2j0h8/udacitycapstone
+        - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
           name: my-app
           ports:
             - containerPort: 80
               name: http-server
+      imagePullSecrets:
+        - name: regcred
+
