@@ -10,14 +10,14 @@ vpc:
   cidr: "192.168.0.0/16"
   subnets:
     public:
-      us-west-2:
+      us-west-2a:
         id: subnet-06de91920570103ea
-      us-west-2:
+      us-west-2b:
         id: subnet-02b37fead7bd4d9ad
     private:
-      us-west-2:
+      us-west-2a:
         id: subnet-0bb0d394d870b1daf
-      us-west-2:
+      us-west-2b:
         id: subnet-0b87880a171781bb5
 
 
