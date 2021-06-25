@@ -22,9 +22,10 @@ spec:
       containers:
         - image: 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
           name: my-app
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
-              name: http-server
+              
       imagePullSecrets:
         - name: regcred
 
