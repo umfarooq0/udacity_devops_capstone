@@ -58,6 +58,9 @@ jobs:
               eksctl create cluster --config-file=cluster.yaml
               kubectl apply -f deployment.yml
               kubectl get deployments
+              kubectl apply -f service.yaml
+              kubectl get services
+              kubectl get nodes -o wide
 
 
             
