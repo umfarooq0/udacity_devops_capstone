@@ -5,6 +5,22 @@ metadata:
   name: nearlythere
   region: us-west-2
 
+vpc:
+  id: vpc-0f4e7ff21d6b9615e
+  cidr: "192.168.0.0/16"
+  subnets:
+    public:
+      us-west-2:
+        id: subnet-0f5fbf47ce0553f30
+      us-west-2:
+        id: subnet-0526973c8eb98b576
+    private:
+      us-west-2:
+        id: subnet-0120eb437afcf745a
+      us-west-2:
+        id: subnet-0bcab3e75df84902f
+
+
 nodeGroups:
   - name: ng-1
     instanceType: t4g.micro
