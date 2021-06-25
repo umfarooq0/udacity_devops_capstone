@@ -35,13 +35,7 @@ jobs:
           name: login
           command: |
               aws ecr get-login-password --region $AWS_DEFAULT_REGION  | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
-      - run:
-          name: create repo
-          command: |  
-            aws ecr create-repository \
-            --repository-name junesworld \
-            --image-scanning-configuration scanOnPush=true \
-            --region us-west-2
+              
       - run:
           name: Push image to repo  
           command: |
