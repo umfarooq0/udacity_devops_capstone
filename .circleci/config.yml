@@ -42,8 +42,8 @@ jobs:
           name: Push image to repo  
           command: |
               docker build -t nginxd .
-              docker tag nginxd:latest $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/nginxd:latest
-              docker push $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/nginxd:latest
+              docker tag nginxd:latest $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
+              docker push $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
               
               
       - run:
