@@ -42,8 +42,8 @@ jobs:
           name: Push image to repo  
           command: |
               docker build -t nginxd .
-              docker tag nginxd:latest $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
-              docker push $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
+              docker tag nginxd:latest public.ecr.aws/v0t2j0h8/udacitycapstone
+              docker push public.ecr.aws/v0t2j0h8/udacitycapstone
 
       - run: 
           name: create clusters 
