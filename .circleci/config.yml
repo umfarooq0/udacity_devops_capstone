@@ -50,13 +50,13 @@ jobs:
               docker push aws_account_id.dkr.ecr.us-west-2.amazonaws.com/nginxD:latest
               
               
-       - run:
+      - run:
           name: infrastructure handling for AWS VPC, subnets and networking
           command: |
               chmod +x create_vpc_infra.sh
               ./create_vpc_infra.sh
               
-       - run: 
+      - run: 
           name: create clusters 
           command: |
               eksctl create cluster --config-file=cluster.yaml
