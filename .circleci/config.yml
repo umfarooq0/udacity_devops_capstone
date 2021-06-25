@@ -48,7 +48,7 @@ jobs:
       - run: 
           name: create clusters 
           command: |
-              
+              aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-Iz8RCwIdj7T9
               kubectl apply -f deployment.yml
               kubectl get deployments
               kubectl apply -f service.yaml
