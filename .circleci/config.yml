@@ -44,14 +44,7 @@ jobs:
               docker build -t nginxd .
               docker tag nginxd:latest $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
               docker push $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
-              
-              
-      - run:
-          name: infrastructure handling for AWS VPC, subnets and networking
-          command: |
-              chmod +x create_vpc_infra.sh
-              ./create_vpc_infra.sh
-              
+
       - run: 
           name: create clusters 
           command: |
