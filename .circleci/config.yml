@@ -46,11 +46,13 @@ jobs:
               docker push 864185776221.dkr.ecr.us-west-2.amazonaws.com/junesworld:latest
 
       - run: 
-          name: create clusters 
+          name: Deploy
           command: |
-              aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-UcfLNonCxOuJ
               kubectl apply -f deployment.yml
               kubectl get deployments
+      - run: 
+          name: Services
+          command: |
               kubectl apply -f service.yaml
               kubectl get services
               kubectl get nodes -o wide
