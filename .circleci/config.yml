@@ -77,7 +77,7 @@ jobs:
       - run: 
           name: Deploy
           command: |
-              aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-UcfLNonCxOuJ
+              aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-oGfQxgMofVum
               kubectl apply -f deployment.yml
               kubectl get deployments
       - run: 
