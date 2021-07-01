@@ -63,18 +63,7 @@ jobs:
           name: login
           command: |
               aws ecr get-login-password --region $AWS_DEFAULT_REGION  | docker login --username AWS --password-stdin 864185776221.dkr.ecr.us-west-2.amazonaws.com \
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            make install
-            # Install hadolint
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            sudo chmod +x /bin/hadolint
-    
-      
-      
+
       
       - setup_remote_docker
       
