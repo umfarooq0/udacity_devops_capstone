@@ -104,7 +104,7 @@ jobs:
 workflows:
   deployment:
     jobs:
-      - build:
+      - build
       - deploy-cfn:
           requires:
             build
