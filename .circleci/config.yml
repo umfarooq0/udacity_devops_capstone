@@ -2,6 +2,33 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@1.4.0
+  
+jobs:
+  build:
+    docker:
+      # Use the same Docker base as the project
+      - image: python:3.7.3-stretch
+    
+    working_directory: ~/repo
+  
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            make install
+            # Install hadolint
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            chmod +x /bin/hadolint
+       # run lint!
+      - run:
+          name: run lint
+          command: |
+            . venv/bin/activate
+            make lint
+  
+  
 
 jobs:
   deploy-cfn:
@@ -46,12 +73,7 @@ jobs:
             sudo chmod +x /bin/hadolint
     
       
-      # run lint!
-      - run:
-          name: run lint
-          command: |
-            . venv/bin/activate
-            make lint
+      
       
       - setup_remote_docker
       
@@ -81,7 +103,10 @@ jobs:
 workflows:
   deployment:
     jobs:
+      - build:
       - deploy-cfn:
+          requires:
+            build
 
           context:
             - AWS
